@@ -1,7 +1,7 @@
     tinymce.init({
         selector: selectors,
         document_base_url: modx_site_url,
-        language: 'ru',
+        language: lang,
         plugins: 'print preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 
         mobile: {
