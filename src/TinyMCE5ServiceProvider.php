@@ -19,46 +19,63 @@ class TinyMCE5ServiceProvider extends ServiceProvider
         });
 
         Event::listen('evolution.OnRichTextEditorInit', function ($params) {
+            $defaultTheme = 'test'; //@TODO: прокинуть в настройки
+            $richtextArr = [];
 
-            $selectorArr = array_map(function($val) { return '#'.$val;} , $params['elements']);
-
-            return "
-			<script src='".MODX_SITE_URL."assets/plugins/tinymce5/js/tinymce/tinymce.min.js'></script>
-			<script>
-			    let selectors = '".implode(',', $selectorArr). "';
-			    let modx_site_url = '" . MODX_SITE_URL . "';
-			    let lang = '" . evo()->getConfig('manager_language') . "';
-			    let filePicker = function (callback, value, meta) {
-               
-                    let type = 'images';
-                    if (meta.filetype == 'file') { type = 'files';}
-                    
-                    let windowManagerURL = '/manager/media/browser/mcpuk/browse.php?opener=tinymce4&field=src&type=' + type
-                    ;// filemanager path
-                    window.tinymceCallBackURL = '';
-                    window.tinymceWindowManager = tinymce.activeEditor.windowManager;
-                
-                    tinymce.activeEditor.windowManager.open({
-                        title: 'Image',
-                        size: 'large',
-                        body: {
-                        type: 'panel',
-                            items: [{
-                                type: 'htmlpanel',
-                                html: '<iframe src=\"' + windowManagerURL + '\" frameborder=\"0\" style=\"width:840px; height:500px\"></iframe>'
-                            }]
-                        },
-                        buttons: [
-                        ] ,
-                    onClose: function () {
-                        if (tinymceCallBackURL!='')
-                            callback(tinymceCallBackURL, {});
-                        } 
-                    });
+            foreach($params['elements'] as $richtext){
+                if(isset($params['options'][$richtext]['theme'])){
+                    $richtextArr[$params['options'][$richtext]['theme']][] = '#'.$richtext;
+                }else{
+                    $richtextArr[$defaultTheme][] = '#'.$richtext;
                 }
-            </script>
-            <script src='".MODX_SITE_URL."assets/plugins/tinymce5/configs/test.js'></script>
-			";
+            }
+
+            $config = "
+                <script src='" . MODX_SITE_URL . "assets/plugins/tinymce5/js/tinymce/tinymce.min.js'></script>
+                <script>
+                    let modx_site_url = '" . MODX_SITE_URL . "';
+                    let lang = '" . evo()->getConfig('manager_language') . "';
+                    let filePicker = function (callback, value, meta) {
+                   
+                        let type = 'images';
+                        if (meta.filetype == 'file') { type = 'files';}
+                        
+                        let windowManagerURL = '/manager/media/browser/mcpuk/browse.php?opener=tinymce4&field=src&type=' + type
+                        ;// filemanager path
+                        window.tinymceCallBackURL = '';
+                        window.tinymceWindowManager = tinymce.activeEditor.windowManager;
+                    
+                        tinymce.activeEditor.windowManager.open({
+                            title: 'Image',
+                            size: 'large',
+                            body: {
+                            type: 'panel',
+                                items: [{
+                                    type: 'htmlpanel',
+                                    html: '<iframe src=\"' + windowManagerURL + '\" frameborder=\"0\" style=\"width:840px; height:500px\"></iframe>'
+                                }]
+                            },
+                            buttons: [
+                            ] ,
+                        onClose: function () {
+                            if (tinymceCallBackURL!='')
+                                callback(tinymceCallBackURL, {});
+                            } 
+                        });
+                    }
+                </script>
+            ";
+            foreach($richtextArr as $theme => $selector) {
+                $config .= "
+                <script>
+                    let selector".$theme." = '" . implode(',', $selector) . "';
+                </script>
+                <script src='" . MODX_SITE_URL . "assets/plugins/tinymce5/configs/".$theme.".js'></script>
+                <script> 
+                    tinymce.init( ".$theme." );
+                </script>";
+            }
+            return $config;
         });
 
     }

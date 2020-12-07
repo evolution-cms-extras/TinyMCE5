@@ -1,5 +1,5 @@
-    tinymce.init({
-        selector: selectors,
+let test = {
+        selector: selectortest,
         document_base_url: modx_site_url,
         language: lang,
         plugins: 'print preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
@@ -31,4 +31,4 @@
         file_picker_callback: function(callback, value, meta) {
             filePicker(callback, value, meta)
         }
-    });
+    }
