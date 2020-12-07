@@ -1,6 +1,7 @@
 <?php namespace EvolutionCMS\TinyMCE5;
 
 use EvolutionCMS\ServiceProvider;
+use Event;
 
 class TinyMCE5ServiceProvider extends ServiceProvider
 {
