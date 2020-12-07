@@ -7,17 +7,16 @@ class TinyMCE5ServiceProvider extends ServiceProvider
 {
 
     protected $namespace = '';
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
 
     public function boot()
     {
         $this->loadViewsFrom(__DIR__ . '/../views', 'tinymce5settings');
     }
-
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
     public function register()
     {
         Event::listen('evolution.OnRichTextEditorRegister', function ($params) {
@@ -25,14 +24,15 @@ class TinyMCE5ServiceProvider extends ServiceProvider
         });
 
         Event::listen('evolution.OnInterfaceSettingsRender', function ($params) {
-            return \View::make('tinymce5settings@tinymce5settings')->toHtml();
+            $files = array_diff(scandir(MODX_BASE_PATH.'assets/plugins/tinymce5/configs'), array('.', '..', 'custom.js'));
+            return \View::make('tinymce5settings::tinymce5settings', ['themes'=>$files])->toHtml();
         });
 
 
         Event::listen('evolution.OnRichTextEditorInit', function ($params) {
-            $defaultTheme = 'test'; //@TODO: прокинуть в настройки
-            $richtextArr = [];
+            $defaultTheme = evo()->getConfig('tinymce5_theme') ?? 'custom';
 
+            $richtextArr = [];
             foreach($params['elements'] as $richtext){
                 if(isset($params['options'][$richtext]['theme'])){
                     $richtextArr[$params['options'][$richtext]['theme']][] = '#'.$richtext;

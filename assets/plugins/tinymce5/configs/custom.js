@@ -1,39 +1,34 @@
-/*
- * All available config-params of TinyMCE4
- * https://www.tinymce.com/docs/configure/
- *
- * Belows default configuration setup assures all editor-params have a fallback-value, and type per key is known
- * $this->set( $editorParam, $value, $type, $emptyAllowed=false )
- *
- * $editorParam     = param to set
- * $value           = value to set
- * $type            = string, number, bool, json (array or string)
- * $emptyAllowed    = true, false (allows param:'' instead of falling back to default)
- * If $editorParam is empty and $emptyAllowed is true, $defaultValue will be ignored
- *
- * $this->modxParams holds an array of actual Modx- / user-settings
- *
- * */
+let custom = {
+    "selector": selector_custom,
+    "document_base_url": modx_site_url,
+    "language": lang,
+    "plugins": 'print preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 
-if( !empty( $this->modxParams['custom_plugins'])) {
-    $this->set('plugins', $this->modxParams['custom_plugins'], 'string' );
-};
-$this->appendSet('plugins', 'template', ' '); // Assure plugin is loaded / in plugins-list
+    "mobile": {
+        "theme": 'silver',
+        "plugins": 'print preview',
+        "menubar": true,
+        "toolbar": 'undo redo | bold italic'
+    },
 
-$this->set('menubar', false, 'bool' ); // https://www.tinymce.com/docs/configure/editor-appearance/#menubar
+    "menubar": 'file edit view insert format tools table tc help',
+    "toolbar": 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
 
-// Take over global values for each of the 4 rows
-/*
-if(!empty($this->modxParams['custom_buttons_useglobal'])) {
-    $i=1;
-    while($i<=4) {
-        $this->modxParams['custom_buttons'.$i] = $modx->configGlobal[$this->editorKey.'_custom_buttons'.$i];
-        $i++;
+    "image_advtab": true,
+
+    "importcss_append": true,
+
+    "height": 600,
+    "image_caption": true,
+    "quickbars_selection_toolbar": 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+    "noneditable_noneditable_class": 'mceNonEditable',
+    "toolbar_mode": 'sliding',
+
+    "contextmenu": 'link image imagetools table configurepermanentpen',
+    "a11y_advanced_options": true,
+    "skin": 'oxide',
+    "content_css": 'default',
+    "file_picker_callback": function(callback, value, meta) {
+        filePicker(callback, value, meta)
     }
 }
-*/
-
-$this->set('toolbar1', $this->modxParams['custom_buttons1'], 'string', false );
-$this->set('toolbar2', $this->modxParams['custom_buttons2'], 'string', true );
-$this->set('toolbar3', $this->modxParams['custom_buttons3'], 'string', true );
-$this->set('toolbar4', $this->modxParams['custom_buttons4'], 'string', true );
