@@ -18,7 +18,7 @@ class TinyMCE5ServiceProvider extends ServiceProvider
             return 'TinyMCE5';
         });
 
-        Event::listen('evolution.OnWebAuthentication', function ($params) {
+        Event::listen('evolution.OnRichTextEditorInit', function ($params) {
 
             //echo print_r($elements, 1);
             $script = "
@@ -84,6 +84,7 @@ class TinyMCE5ServiceProvider extends ServiceProvider
                 }
                 });
 			</script>";
+            return $script;
         });
 
     }
