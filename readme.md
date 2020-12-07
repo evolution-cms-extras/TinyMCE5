@@ -1,4 +1,4 @@
-# TinyMCE 5.6.1 for Evolution CMS 3
+# TinyMCE 5 for Evolution CMS 3
 
 ## Install by artisan Extras:
 
