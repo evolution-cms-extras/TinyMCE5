@@ -12,11 +12,22 @@ class TinyMCE5ServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
+    public function boot()
+    {
+        $this->loadViewsFrom(__DIR__ . '/../views', 'tinymce5settings');
+    }
+
     public function register()
     {
         Event::listen('evolution.OnRichTextEditorRegister', function ($params) {
             return 'TinyMCE5';
         });
+
+        Event::listen('evolution.OnInterfaceSettingsRender', function ($params) {
+            return \View::make('tinymce5settings@tinymce5settings')->toHtml();
+        });
+
 
         Event::listen('evolution.OnRichTextEditorInit', function ($params) {
             $defaultTheme = 'test'; //@TODO: прокинуть в настройки
@@ -29,7 +40,7 @@ class TinyMCE5ServiceProvider extends ServiceProvider
                     $richtextArr[$defaultTheme][] = '#'.$richtext;
                 }
             }
-
+            echo print_r($richtextArr, 1);
             $config = "
                 <script src='" . MODX_SITE_URL . "assets/plugins/tinymce5/js/tinymce/tinymce.min.js'></script>
                 <script>
@@ -66,14 +77,16 @@ class TinyMCE5ServiceProvider extends ServiceProvider
                 </script>
             ";
             foreach($richtextArr as $theme => $selector) {
+
                 $config .= "
                 <script>
-                    let selector".$theme." = '" . implode(',', $selector) . "';
+                    let selector = '" . implode(',', $selector) . "';
                 </script>
                 <script src='" . MODX_SITE_URL . "assets/plugins/tinymce5/configs/".$theme.".js'></script>
                 <script> 
                     tinymce.init( ".$theme." );
                 </script>";
+
             }
             return $config;
         });
