@@ -40,7 +40,7 @@ class TinyMCE5ServiceProvider extends ServiceProvider
                     $richtextArr[$defaultTheme][] = '#'.$richtext;
                 }
             }
-            echo print_r($richtextArr, 1);
+
             $config = "
                 <script src='" . MODX_SITE_URL . "assets/plugins/tinymce5/js/tinymce/tinymce.min.js'></script>
                 <script>
@@ -80,7 +80,7 @@ class TinyMCE5ServiceProvider extends ServiceProvider
 
                 $config .= "
                 <script>
-                    let selector = '" . implode(',', $selector) . "';
+                    let selector_".$theme." = '" . implode(',', $selector) . "';
                 </script>
                 <script src='" . MODX_SITE_URL . "assets/plugins/tinymce5/configs/".$theme.".js'></script>
                 <script> 
