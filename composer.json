@@ -3,6 +3,9 @@
   "description": "evocms package tinymce5",
   "type": "EvolutionCMS-Plugin",
   "license": "GPL-2.0",
+  "require": {
+    "tinymce/tinymce": "^5.6"
+  },
   "autoload": {
     "psr-4": {
       "EvolutionCMS\\TinyMCE5\\": "src"
