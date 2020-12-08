@@ -85,7 +85,7 @@ class TinyMCE5ServiceProvider extends ServiceProvider
                 <script>
                     let selector_".$theme." = '" . implode(',', $selector) . "';
                 </script>
-                <script src='" . MODX_SITE_URL . "assets/plugins/tinymce5/configs/".$theme.".js'></script>
+                <script src='" . MODX_SITE_URL . "assets/plugins/tinymce5/configs/".$theme.".js?v=".filemtime(MODX_BASE_PATH . "assets/plugins/tinymce5/configs/".$theme.".js")."'></script>
                 <script> 
                     tinymce.init( ".$theme." );
                 </script>";
