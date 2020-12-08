@@ -9,6 +9,10 @@ let custom = {
 
     toolbar2: 'link unlink anchor image media codesample table | subscript superscript charmap emoticons | nonbreaking | visualchars visualblocks wordcount preview fullscreen code formatselect',
 
+    mobile:{
+        theme: "mobile"
+    },
+
     quickbars_selection_toolbar: false,
     contextmenu: false,
     image_advtab: true,
@@ -25,8 +29,6 @@ let custom = {
     element_format:'xhtml',
 
     image_class_list:[{title: 'None', value: ''},{title: 'Float left', value: 'justifyleft'},{title: 'Float right', value: 'justifyright'},{title: 'Image Responsive',value: 'img-responsive'}],
-
-
 
     browser_spellcheck:false,
     paste_word_valid_elements:'a[href|name],p,b,strong,i,em,h1,h2,h3,h4,h5,h6,table,th,td[colspan|rowspan],tr,thead,tfoot,tbody,br,hr,sub,sup,u',

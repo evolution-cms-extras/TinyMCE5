@@ -1,27 +1,46 @@
-<?php
-/*
- * All available config-params of TinyMCE4
- * https://www.tinymce.com/docs/configure/
- *
- * Belows default configuration setup assures all editor-params have a fallback-value, and type per key is known
- * $this->set( $editorParam, $value, $type, $emptyAllowed=false )
- *
- * $editorParam     = param to set
- * $value           = value to set
- * $type            = string, number, bool, json (array or string)
- * $emptyAllowed    = true, false (allows param:'' instead of falling back to default)
- * If $editorParam is empty and $emptyAllowed is true, $defaultValue will be ignored
- *
- * $this->modxParams holds an array of actual Modx- / user-settings
- *
- * */
+let full = {
+    selector: selector_full,
+    document_base_url: modx_site_url,
+    language: lang,
+    language_url: modx_site_url + 'assets/plugins/tinymce5/langs/' + lang + '.js',
+    plugins: 'print preview importcss searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr paste pagebreak nonbreaking anchor toc insertdatetime advlist save lists wordcount imagetools textpattern noneditable  charmap emoticons code',
 
-// @todo: make "styleprops"-button work with "compat3x-plugin"?
-// http://archive.tinymce.com/forum/viewtopic.php?pid=115507#p115507
+    toolbar1: 'undo redo | cut copy paste | searchreplace | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | hr removeformat',
 
-// @todo: Is this list complete for a "full"-theme?
-$this->set('plugins', 'anchor autolink lists spellchecker pagebreak layer table save hr modxlink image imagetools emoticons insertdatetime preview media searchreplace print code contextmenu paste directionality fullscreen noneditable visualchars textcolor nonbreaking template youtube autosave advlist visualblocks charmap wordcount codesample colorpicker', 'string');
-$this->set('toolbar1', 'save print newdocument | undo redo | searchreplace | cut copy paste pastetext | visualchars spellchecker | visualblocks code | preview fullscreen', 'string');
-$this->set('toolbar2', 'styleselect formatselect fontselect fontsizeselect | forecolor backcolor', 'string');
-$this->set('toolbar3', 'bold italic underline strikethrough subscript superscript removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | ltr rtl', 'string');
-$this->set('toolbar4', 'image youtube media | link unlink anchor | table | pagebreak hr | template codesample nonbreaking insertdatetime | charmap emoticons', 'string');
+    toolbar2: 'link unlink anchor image media codesample table | subscript superscript charmap emoticons | nonbreaking | visualchars visualblocks wordcount preview fullscreen code formatselect',
+
+    toolbar3: 'forecolor backcolor fontselect fontsizeselect formatselect',
+
+    mobile:{
+        theme: "mobile"
+    },
+
+    quickbars_selection_toolbar: false,
+    contextmenu: false,
+    image_advtab: true,
+    importcss_append: true,
+    menubar: true,
+    contextmenu_never_use_native: true,
+    relative_urls:true,
+    remove_script_host:true,
+    convert_urls:true,
+    resize:true,
+    forced_root_block:'p',
+    entity_encoding:'named',
+    schema:'html5',
+    element_format:'xhtml',
+
+    image_class_list:[{title: 'None', value: ''},{title: 'Float left', value: 'justifyleft'},{title: 'Float right', value: 'justifyright'},{title: 'Image Responsive',value: 'img-responsive'}],
+
+    browser_spellcheck:false,
+    paste_word_valid_elements:'a[href|name],p,b,strong,i,em,h1,h2,h3,h4,h5,h6,table,th,td[colspan|rowspan],tr,thead,tfoot,tbody,br,hr,sub,sup,u',
+
+    height: 500,
+    image_caption: true,
+    skin: 'oxide',
+    setup:function(ed) { ed.on("change", function(e) { documentDirty=true; }); },
+    save_onsavecallback:function () { documentDirty=false; document.getElementById("stay").value = 2; document.mutate.save.click(); },
+    file_picker_callback: function(callback, value, meta) {
+        filePicker(callback, value, meta)
+    }
+}

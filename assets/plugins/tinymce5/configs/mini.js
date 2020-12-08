@@ -1,33 +1,41 @@
-<?php
-/*
- * All available config-params of TinyMCE4
- * https://www.tinymce.com/docs/configure/
- *
- * Belows default configuration setup assures all editor-params have a fallback-value, and type per key is known
- * $this->set( $editorParam, $value, $type, $emptyAllowed=false )
- *
- * $editorParam     = param to set
- * $value           = value to set
- * $type            = string, number, bool, json (array or string)
- * $emptyAllowed    = true, false (allows param:'' instead of falling back to default)
- * If $editorParam is empty and $emptyAllowed is true, $defaultValue will be ignored
- *
- * $this->modxParams holds an array of actual Modx- / user-settings
- *
- * */
+let mini = {
+    selector: selector_mini,
+    document_base_url: modx_site_url,
+    language: lang,
+    language_url: modx_site_url + 'assets/plugins/tinymce5/langs/' + lang + '.js',
+    plugins: 'print preview importcss searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr paste pagebreak nonbreaking anchor toc insertdatetime advlist save lists wordcount imagetools textpattern noneditable  charmap emoticons code',
 
-// @todo: clean plugins for mini
+    toolbar1: 'bold italic underline strikethrough | link unlink anchor image media',
 
-// $this->set('plugins', 'advlist autolink lists modxlink image charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen spellchecker insertdatetime media nonbreaking save table contextmenu directionality emoticons template paste textcolor codesample colorpicker textpattern imagetools paste youtube', 'string');
-$this->set('toolbar1', 'bold italic underline strikethrough', 'string');
-$this->set('toolbar2', 'alignleft aligncenter alignright | undo redo', 'string');
-$this->set('toolbar3', NULL);
-$this->set('toolbar4', NULL);
+    toolbar2: 'alignleft aligncenter alignright alignjustify  bullist numlist | fullscreen code ',
 
-// Hide bars
-$this->set('menubar',               false,                           'bool' );       // https://www.tinymce.com/docs/configure/editor-appearance/#menubar
-$this->set('statusbar',             false,                           'bool' );       // https://www.tinymce.com/docs/get-started/customize-ui/#hidingthestatusbar
+    quickbars_selection_toolbar: false,
+    contextmenu: false,
+    image_advtab: true,
+    importcss_append: true,
+    menubar: false,
+    statusbar: false,
+    contextmenu_never_use_native: true,
+    relative_urls:true,
+    remove_script_host:true,
+    convert_urls:true,
+    resize:true,
+    forced_root_block:'p',
+    entity_encoding:'named',
+    schema:'html5',
+    element_format:'xhtml',
 
-// Will be overwritten by force() within plugin-code anyhow
-$this->set('height',            '200px',    'string' );
-$this->set('width',             '100%',    'string' );
+    image_class_list:[{title: 'None', value: ''},{title: 'Float left', value: 'justifyleft'},{title: 'Float right', value: 'justifyright'},{title: 'Image Responsive',value: 'img-responsive'}],
+
+    browser_spellcheck:false,
+    paste_word_valid_elements:'a[href|name],p,b,strong,i,em,h1,h2,h3,h4,h5,h6,table,th,td[colspan|rowspan],tr,thead,tfoot,tbody,br,hr,sub,sup,u',
+
+    height: 200,
+    image_caption: true,
+    skin: 'oxide',
+    setup:function(ed) { ed.on("change", function(e) { documentDirty=true; }); },
+    save_onsavecallback:function () { documentDirty=false; document.getElementById("stay").value = 2; document.mutate.save.click(); },
+    file_picker_callback: function(callback, value, meta) {
+        filePicker(callback, value, meta)
+    }
+}
