@@ -46,6 +46,7 @@ class TinyMCE5ServiceProvider extends ServiceProvider
                 <script>
                     let modx_site_url = '" . MODX_SITE_URL . "';
                     let lang = '" . evo()->getConfig('manager_language') . "';
+                    let content_css = '" . evo()->getConfig('editor_css_path') . "';
                     let filePicker = function (callback, value, meta) {
                    
                         let type = 'images';

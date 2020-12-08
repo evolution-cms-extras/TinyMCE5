@@ -3,6 +3,7 @@ let custom = {
     "document_base_url": modx_site_url,
     "language": lang,
     "language_url": modx_site_url + 'assets/plugins/tinymce5/langs/' + lang + '.js',
+    "content_css" : content_css,
     "plugins": 'print preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
 
     "mobile": {
