@@ -1,36 +1,42 @@
 let custom = {
-    "selector": selector_custom,
-    "document_base_url": modx_site_url,
-    "language": lang,
-    "language_url": modx_site_url + 'assets/plugins/tinymce5/langs/' + lang + '.js',
-    "content_css" : content_css,
-    "plugins": 'print preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+    selector: selector_custom,
+    document_base_url: modx_site_url,
+    language: lang,
+    language_url: modx_site_url + 'assets/plugins/tinymce5/langs/' + lang + '.js',
+    plugins: 'print preview importcss searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr paste pagebreak nonbreaking anchor toc insertdatetime advlist save lists wordcount imagetools textpattern noneditable  charmap emoticons code',
 
-    "mobile": {
-        "theme": 'silver',
-        "plugins": 'print preview',
-        "menubar": true,
-        "toolbar": 'undo redo | bold italic'
-    },
+    toolbar1: 'undo redo | cut copy paste | searchreplace | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | hr removeformat',
 
-    "menubar": 'file edit view insert format tools table tc help',
-    "toolbar": 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
+    toolbar2: 'link unlink anchor image media codesample table | subscript superscript charmap emoticons | nonbreaking | visualchars visualblocks wordcount preview fullscreen code formatselect',
 
-    "image_advtab": true,
+    quickbars_selection_toolbar: false,
+    contextmenu: false,
+    image_advtab: true,
+    importcss_append: true,
+    menubar: false,
+    contextmenu_never_use_native: true,
+    relative_urls:true,
+    remove_script_host:true,
+    convert_urls:true,
+    resize:true,
+    forced_root_block:'p',
+    entity_encoding:'named',
+    schema:'html5',
+    element_format:'xhtml',
 
-    "importcss_append": true,
+    image_class_list:[{title: 'None', value: ''},{title: 'Float left', value: 'justifyleft'},{title: 'Float right', value: 'justifyright'},{title: 'Image Responsive',value: 'img-responsive'}],
 
-    "height": 600,
-    "image_caption": true,
-    "quickbars_selection_toolbar": 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-    "noneditable_noneditable_class": 'mceNonEditable',
-    "toolbar_mode": 'sliding',
 
-    "contextmenu": 'link image imagetools table configurepermanentpen',
-    "a11y_advanced_options": true,
-    "skin": 'oxide',
-    "content_css": 'default',
-    "file_picker_callback": function(callback, value, meta) {
+
+    browser_spellcheck:false,
+    paste_word_valid_elements:'a[href|name],p,b,strong,i,em,h1,h2,h3,h4,h5,h6,table,th,td[colspan|rowspan],tr,thead,tfoot,tbody,br,hr,sub,sup,u',
+
+    height: 400,
+    image_caption: true,
+    skin: 'oxide',
+    setup:function(ed) { ed.on("change", function(e) { documentDirty=true; }); },
+    save_onsavecallback:function () { documentDirty=false; document.getElementById("stay").value = 2; document.mutate.save.click(); },
+    file_picker_callback: function(callback, value, meta) {
         filePicker(callback, value, meta)
     }
 }
