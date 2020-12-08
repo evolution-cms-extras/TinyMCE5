@@ -10,7 +10,9 @@ class TinyMCE5ServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../views', 'tinymce5settings');
+        if(IN_MANAGER_MODE) {
+            $this->loadViewsFrom(__DIR__ . '/../views', 'tinymce5settings');
+        }
     }
     /**
      * Register the service provider.
