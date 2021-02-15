@@ -44,7 +44,7 @@ class TinyMCE5ServiceProvider extends ServiceProvider
             }
 
             $config = "
-                <script src='" . MODX_SITE_URL . "core/vendor/tinymce/tinymce/tinymce.min.js'></script>
+                <script src='" . MODX_SITE_URL . "assets/plugins/tinymce5/tinymce/tinymce.min.js'></script>
                 <script>
                     let modx_site_url = '" . MODX_SITE_URL . "';
                     let lang = '" . evo()->getConfig('fe_editor_lang') . "';
