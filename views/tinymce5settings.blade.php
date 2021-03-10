@@ -8,7 +8,9 @@
             <select class="form-control" name="tinymce5_theme" id="tinymce5_theme" onchange="documentDirty=true;" size="1">
                 <option value="custom">custom.js</option>
                 @foreach($themes as $theme)
-                    <option value="{{ basename($theme,".js") }}">{{ $theme }}</option>
+                    <option value="{{ basename($theme,".js") }}"
+                        @if(evo()->getConfig('tinymce5_theme') == basename($theme,".js")) selected @endif
+                    >{{ $theme }}</option>
                 @endforeach
             </select>
         </div>
