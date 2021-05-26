@@ -6,6 +6,7 @@ use Event;
 class TinyMCE5ServiceProvider extends ServiceProvider
 {
 
+    protected $editorLabel = 'TinyMCE5';
     protected $namespace = '';
 
     public function boot()
@@ -22,7 +23,7 @@ class TinyMCE5ServiceProvider extends ServiceProvider
     public function register()
     {
         Event::listen('evolution.OnRichTextEditorRegister', function ($params) {
-            return 'TinyMCE5';
+            return $this->editorLabel;
         });
 
         Event::listen('evolution.OnInterfaceSettingsRender', function ($params) {
@@ -32,6 +33,10 @@ class TinyMCE5ServiceProvider extends ServiceProvider
 
 
         Event::listen('evolution.OnRichTextEditorInit', function ($params) {
+            if($params['editor'] != $this->editorLabel) {
+                return '';
+            }
+
             $defaultTheme = evo()->getConfig('tinymce5_theme') ?? 'custom';
 
             $richtextArr = [];
