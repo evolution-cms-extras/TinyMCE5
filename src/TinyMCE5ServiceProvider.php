@@ -35,11 +35,13 @@ class TinyMCE5ServiceProvider extends ServiceProvider
             $defaultTheme = evo()->getConfig('tinymce5_theme') ?? 'custom';
 
             $richtextArr = [];
-            foreach($params['elements'] as $richtext){
-                if(isset($params['options'][$richtext]['theme'])){
-                    $richtextArr[$params['options'][$richtext]['theme']][] = '#'.$richtext;
-                }else{
-                    $richtextArr[$defaultTheme][] = '#'.$richtext;
+            if($params['editor'] == 'TinyMCE5'){
+                foreach($params['elements'] as $richtext){
+                    if(isset($params['options'][$richtext]['theme'])){
+                        $richtextArr[$params['options'][$richtext]['theme']][] = '#'.$richtext;
+                    }else{
+                        $richtextArr[$defaultTheme][] = '#'.$richtext;
+                    }
                 }
             }
 
