@@ -56,8 +56,8 @@ class TinyMCE5ServiceProvider extends ServiceProvider
                     let content_css = '" . evo()->getConfig('editor_css_path') . "';
                     let filePicker = function (callback, value, meta) {
                    
-                        let type = 'images';
-                        if (meta.filetype == 'file') { type = 'files';}
+                        let type = 'images', windowtitle = 'Image';
+                        if (meta.filetype == 'file') { type = 'files'; windowtitle = 'File'}
                         
                         let windowManagerURL = '/manager/media/browser/mcpuk/browse.php?opener=tinymce4&field=src&type=' + type
                         ;// filemanager path
@@ -65,13 +65,13 @@ class TinyMCE5ServiceProvider extends ServiceProvider
                         window.tinymceWindowManager = tinymce.activeEditor.windowManager;
                     
                         tinymce.activeEditor.windowManager.open({
-                            title: 'Image',
+                            title: windowtitle,
                             size: 'large',
                             body: {
                             type: 'panel',
                                 items: [{
                                     type: 'htmlpanel',
-                                    html: '<iframe src=\"' + windowManagerURL + '\" frameborder=\"0\" style=\"width:840px; height:500px\"></iframe>'
+                                    html: '<iframe id=\"filemanager_iframe-popup\" src=\"' + windowManagerURL + '\" frameborder=\"0\" style=\"width:100%; height:100%\" onload=\"fileManagerFit();\"></iframe>'
                                 }]
                             },
                             buttons: [
@@ -81,6 +81,9 @@ class TinyMCE5ServiceProvider extends ServiceProvider
                                 callback(tinymceCallBackURL, {});
                             } 
                         });
+                    }
+                    function fileManagerFit(){
+                        document.getElementById('filemanager_iframe-popup').parentElement.style.height = '100%';
                     }
                 </script>
             ";
