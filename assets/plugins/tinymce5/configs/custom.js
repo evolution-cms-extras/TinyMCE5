@@ -7,7 +7,7 @@ let custom = {
 
     toolbar1: 'undo redo | cut copy paste | searchreplace | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | hr removeformat',
 
-    toolbar2: 'link unlink anchor image media codesample table | subscript superscript charmap emoticons | nonbreaking | visualchars visualblocks wordcount preview fullscreen code formatselect',
+    toolbar2: 'link unlink anchor image media codesample table | forecolor backcolor | subscript superscript charmap emoticons | nonbreaking | visualchars visualblocks wordcount preview fullscreen code formatselect',
 
     mobile:{
         theme: "mobile"
